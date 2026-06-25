@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Marry ❤️</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+background:linear-gradient(-45deg,#ff758c,#ff7eb3,#ff9a9e,#fad0c4);
+background-size:400% 400%;
+animation:bg 12s ease infinite;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.card{
+background:rgba(255,255,255,.95);
+backdrop-filter:blur(10px);
+width:100%;
+max-width:700px;
+padding:35px;
+border-radius:30px;
+text-align:center;
+box-shadow:0 20px 50px rgba(0,0,0,.2);
+animation:fadeIn .8s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+h1{
+color:#ff3d6e;
+margin-bottom:15px;
+}
+
+p{
+font-size:18px;
+line-height:1.7;
+color:#444;
+margin-bottom:15px;
+}
+
+button{
+padding:14px 28px;
+border:none;
+border-radius:40px;
+font-size:16px;
+cursor:pointer;
+margin:8px;
+transition:.3s;
+}
+
+.yes{
+background:#ff4d88;
+color:white;
+}
+
+.yes:hover{
+transform:scale(1.08);
+}
+
+.no{
+background:#eee;
+}
+
+.footer{
+margin-top:20px;
+font-size:14px;
+color:#888;
+}
+
+.hearts{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+overflow:hidden;
+}
+
+.heart{
+position:absolute;
+font-size:22px;
+animation:float 8s linear infinite;
+opacity:.7;
+}
+
+@keyframes float{
+0%{
+transform:translateY(100vh);
+opacity:0;
+}
+20%{
+opacity:1;
+}
+100%{
+transform:translateY(-120px);
+opacity:0;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<div class="card" id="card">
+
+<h1>👑 Welcome Marry 👑</h1>
+
+<p>
+This website has been specially created for one very cute, very beautiful,
+and currently very angry girl... 😭❤️
+</p>
+
+<p>
+If your name is Marry, please continue.
+Everyone else may leave immediately. 🚫😂
+</p>
+
+<button class="yes" onclick="nextStage()">Continue ❤️</button>
+
+</div>
+
+<script>
+
+let stage = 0;
+
+const pages = [
+
+`
+<h1>🔐 Marry Verification</h1>
+
+<p>Before entering, answer honestly...</p>
+
+<p><b>Who is the cutest girl in the universe?</b></p>
+
+<button class="yes" onclick="nextStage()">Marry ❤️</button>
+
+<p style="margin-top:20px;">
+Correct answer detected. ✅
+</p>
+`,
+
+`
+<h1>🌡️ Anger Meter</h1>
+
+<p>Current Anger Level:</p>
+
+<h1 id="meter">😡😡😡😡😡</h1>
+
+<p>
+Click below to give Marry hugs until she becomes less angry.
+</p>
+
+<button class="yes" onclick="hugMeter()">🤗 Give Hug</button>
+`,
+
+`
+<h1>📋 Official Facts About Marry</h1>
+
+<p>
+❤️ Marry is adorable.<br>
+❤️ Marry is beautiful.<br>
+❤️ Marry is amazing.<br>
+❤️ Marry looks cute even when angry.<br>
+❤️ Marry's smile can make bad days disappear.
+</p>
+
+<button class="yes" onclick="nextStage()">Continue ❤️</button>
+`,
+
+`
+<h1>🚨 My Crime List</h1>
+
+<p>
+Crime #1: Making Marry upset 😭<br>
+Crime #2: Being a little dumb 😭<br>
+Crime #3: Missing Marry too much 😭
+</p>
+
+<p>
+Requested punishment:
+Unlimited hugs from Marry. ❤️
+</p>
+
+<button class="yes" onclick="nextStage()">Proceed</button>
+`,
+
+`
+<h1>📝 Final Love Letter</h1>
+
+<p>
+Dear Marry ❤️
+<br><br>
+
+I know you're angry.
+I know you've been teasing me.
+And maybe I deserve some of it. 😭
+
+But I want you to know something...
+
+I never want you to feel like I don't care.
+
+You matter to me.
+Your smile matters.
+Your happiness matters.
+
+Even when you're angry,
+you're still my favorite notification,
+my favorite conversation,
+and my favorite person.
+
+This little website exists for one reason:
+
+To make you smile again. 🥺❤️
+</p>
+
+<button class="yes" onclick="nextStage()">One More Thing ❤️</button>
+`,
+
+`
+<h1>🥺 Final Decision</h1>
+
+<p>
+Will Marry forgive this silly boy?
+</p>
+
+<button class="yes" onclick="forgive()">Yes ❤️</button>
+
+<button class="no" id="noBtn" onmouseover="runAway()">
+No 😒
+</button>
+`
+];
+
+function nextStage(){
+document.getElementById("card").innerHTML = pages[stage];
+stage++;
+}
+
+let anger=5;
+
+function hugMeter(){
+anger--;
+
+let meter=document.getElementById("meter");
+
+if(anger===4) meter.innerHTML="😡😡😡😡😊";
+if(anger===3) meter.innerHTML="😡😡😡😊😊";
+if(anger===2) meter.innerHTML="😡😡😊😊😊";
+if(anger===1) meter.innerHTML="😡😊😊😊😊";
+
+if(anger===0){
+document.getElementById("card").innerHTML=`
+<h1>🎉 Success!</h1>
+
+<p>
+Marry is now 99% less angry. ❤️
+</p>
+
+<button class="yes" onclick="nextStage()">
+Continue ❤️
+</button>
+`;
+}
+}
+
+function runAway(){
+let btn=document.getElementById("noBtn");
+btn.style.position="absolute";
+btn.style.left=Math.random()*80+"%";
+btn.style.top=Math.random()*80+"%";
+}
+
+function forgive(){
+document.getElementById("card").innerHTML=`
+
+<h1>🎉 MISSION SUCCESSFUL 🎉</h1>
+
+<h1>❤️ Marry Forgave Me ❤️</h1>
+
+<p>
+Thank you, Princess. 👑
+<br><br>
+
+I promise to care for you,
+make you laugh,
+annoy you a little,
+and love you a lot.
+<br><br>
+
+No matter how many times you say
+"I hate you" 😒
+
+I'll still hear:
+"You're my favorite idiot." ❤️
+</p>
+
+<h1>🤗🌹💖✨</h1>
+
+<p>
+Forever Yours ❤️
+</p>
+
+<div class="footer">
+Made with 0 coding skills,
+100% love,
+999% effort,
+and a very scared heart. 😭❤️
+</div>
+`;
+}
+
+function createHeart(){
+const heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.animationDuration=(5+Math.random()*5)+"s";
+document.getElementById("hearts").appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},9000);
+}
+
+setInterval(createHeart,400);
+
+</script>
+
+</body>
+</html>
